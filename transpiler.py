@@ -42,7 +42,7 @@ def transpiler(inf, outf):
 	with create_file(outf) as f:
 		f.write('\n'.join(lines))
 
-def main(directory, output):
+def generate_folder(directory, output):
 	convert_files = [
 		Path(x) / i for (x, y, z) in os.walk(directory)
 			for i in z
@@ -51,7 +51,14 @@ def main(directory, output):
 	for p in convert_files:
 		path = str(p).replace(directory, output).replace('.mlfunction', '.mcfunction').replace('.mlfn', '.mcfunction')
 		transpiler(str(p), path)
+
+def generate_file(input, output):
+	transpiler(input, output)
+	
 if len(sys.argv) == 3:
-	main(sys.argv[1], sys.argv[2])
+	if os.path.isfile(sys.argv[1]):
+		generate_file(sys.argv[1], sys.argv[2])
+	if os.path.isdir(sys.argv[1]):
+		generate_folder(sys.argv[1], sys.argv[2])
 else:
 	print('Incorrect argument, python transpiler.py <input directory> <output directory>')
