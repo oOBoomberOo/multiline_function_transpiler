@@ -51,5 +51,5 @@ def main(directory, output):
 	for p in convert_files:
 		path = str(p).replace(directory, output).replace('.mlfunction', '.mcfunction').replace('.mlfn', '.mcfunction')
 		transpiler(str(p), path)
-grammar = json.load(open('grammar.json'))
-main('input', 'output')
+if sys.argv[1] is not '' and sys.argv[2] is not '':
+	main(sys.argv[1], sys.argv[2])
