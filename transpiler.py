@@ -51,5 +51,7 @@ def main(directory, output):
 	for p in convert_files:
 		path = str(p).replace(directory, output).replace('.mlfunction', '.mcfunction').replace('.mlfn', '.mcfunction')
 		transpiler(str(p), path)
-if sys.argv[1] is not '' and sys.argv[2] is not '':
+if len(sys.argv) == 3:
 	main(sys.argv[1], sys.argv[2])
+else:
+	print('Incorrect argument, python transpiler.py <input directory> <output directory>')
